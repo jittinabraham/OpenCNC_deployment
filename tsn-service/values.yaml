@@ -5,8 +5,8 @@ replicaCount: 1
 annotations: {}
 
 image:
-  repository: tsn-service
-  tag: latest
+  repository: ghcr.io/jittinabraham/opencnc_tsn-service/tsn-service
+  tag: 73a286e9
   pullPolicy: IfNotPresent
   pullSecrets: []
 

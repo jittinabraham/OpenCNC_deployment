@@ -5,8 +5,8 @@ replicaCount: 1
 annotations: {}
 
 image:
-  repository: config-service
-  tag: latest
+  repository: ghcr.io/jittinabraham/opencnc_config-service/config-service
+  tag: fe2fdf0b
   pullPolicy: IfNotPresent
 
 resources:

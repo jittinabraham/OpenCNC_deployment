@@ -5,8 +5,8 @@ replicaCount: 1
 annotations: {}
 
 image:
-  repository: main-service
-  tag: latest
+  repository: ghcr.io/jittinabraham/opencnc_main-service/main-service
+  tag: eeeae1ec
   pullPolicy: IfNotPresent
 
 resources:
