@@ -1,4 +1,4 @@
-name: Helm Chart Validation
+name: Helm Chart Validation and Deploy
 
 on:
   push:
@@ -137,9 +137,37 @@ jobs:
           docker pull $IMAGE
           echo "✓ tsn-service image is accessible"
 
-  all-checks-passed:
+  deploy:
+    # This job only runs if ALL the above jobs succeed
     needs: [helm-lint, helm-template, helm-dry-run, image-accessibility]
     runs-on: ubuntu-latest
     steps:
-      - name: All validation checks passed
-        run: echo "✓ All Helm charts and images are validated successfully!"
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Confirm all validation checks passed
+        run: echo "✓ All Helm charts and images are validated successfully! Starting deployment..."
+
+      - name: Make deployment scripts executable
+        run: |
+          chmod +x ./install_dependencies.sh
+          chmod +x ./generate_certs.sh
+
+      - name: Install dependencies
+        run: ./install_dependencies.sh
+
+      - name: Generate certificates
+        run: ./generate_certs.sh
+        
+      - name: Docker pull 
+        run: |
+              docker pull ghcr.io/jittinabraham/opencnc_main-service/main-service:eeeae1ec
+              docker pull ghcr.io/jittinabraham/opencnc_config-service/config-service:fe2fdf0b
+              docker pull ghcr.io/jittinabraham/opencnc_tsn-service/tsn-service:73a286e9
+
+      # Add your actual deploy step here, e.g. helm upgrade/install, kubectl apply, etc.
+      # - name: Deploy services
+      #   run: |
+      #     ./your_deploy_script.sh
+
+  
