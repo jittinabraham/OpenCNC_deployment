@@ -157,7 +157,7 @@ jobs:
         run: ./install_dependencies.sh
 
       - name: Generate certificates
-        run: ./generate_certs.sh
+        run: ./generate-certs.sh
         
       - name: Docker pull 
         run: |
